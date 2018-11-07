@@ -2,7 +2,6 @@ import { withRouter } from 'next/router'
 import {Router, Link} from '../routes'
 
 const ActiveLink = ({ children, name, className, params}) => {
-
     const handleClick = (e) => {
         e.preventDefault()
         Router.pushRoute(name, params)

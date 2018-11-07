@@ -2,9 +2,9 @@ import React from 'react'
 import {connect} from 'react-redux'
 import Form from './../../components/product/Form'
 import Head from './../../components/Seo';
+import { withRouter } from 'next/router'
 import { reqEditProduct, reqUpdateProduct } from './../../modules/product/actions';
 import { productsSelector } from './../../modules/product/selectors';
-import { withRouter } from 'next/router'
 
 class EditPage extends React.Component {
     static async getInitialProps ({ctx}) {
@@ -101,14 +101,14 @@ class EditPage extends React.Component {
         );
 
         return (
-            <div>
+            <React.Fragment>
                 {renderHead}
                 <Form
                     product={this.state}
                     onChange={this.onChange}
                     onSubmit={this.onSubmit}
                 />
-            </div>
+            </React.Fragment>
         )
     }
 }

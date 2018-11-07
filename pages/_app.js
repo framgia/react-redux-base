@@ -13,6 +13,10 @@ import config from './../config';
 import Router from 'next/router';
 import NProgress from 'nprogress';
 import { fromJS } from 'immutable';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import getPageContext from '../lib/getPageContext';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import JssProvider from 'react-jss/lib/JssProvider';
 
 let lang = "ja";
 Router.events.on('routeChangeStart', (url) => {
@@ -38,9 +42,17 @@ class MyApp extends App {
         return { pageProps, translations }
     }
 
+    componentDidMount() {
+        const jssStyles = document.querySelector('#jss-server-side');
+        if (jssStyles && jssStyles.parentNode) {
+            jssStyles.parentNode.removeChild(jssStyles);
+        }
+    }
+
     constructor (props) {
         super(props)
         this.i18n = startI18n(props.translations, lang)
+        this.pageContext = getPageContext();
     }
 
     render (props) {
@@ -48,9 +60,20 @@ class MyApp extends App {
         return (
             <Container>
                 <I18nextProvider i18n={this.i18n}>
-                    <Provider store={store}>
-                        <Component {...pageProps} />
-                    </Provider>
+                    <JssProvider
+                        registry={this.pageContext.sheetsRegistry}
+                        generateClassName={this.pageContext.generateClassName}
+                    >
+                        <MuiThemeProvider
+                            theme={this.pageContext.theme}
+                            sheetsManager={this.pageContext.sheetsManager}
+                        >
+                            <CssBaseline />
+                            <Provider store={store}>
+                                <Component pageContext={this.pageContext} {...pageProps} />
+                            </Provider>
+                        </MuiThemeProvider>
+                    </JssProvider>
                 </I18nextProvider>
             </Container>
         )
