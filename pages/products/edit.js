@@ -1,14 +1,58 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import Edit from './../../components/product/Edit'
+import Form from './../../components/product/Form'
 import Head from './../../components/Seo';
 import { reqEditProduct, reqUpdateProduct } from './../../modules/product/actions';
 import { productsSelector } from './../../modules/product/selectors';
+import { withRouter } from 'next/router'
 
 class EditPage extends React.Component {
     static async getInitialProps ({ctx}) {
         const { query } = ctx;
-        return query.id
+
+        return {
+            id: query.id
+        }
+    }
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            name: '',
+            description: '',
+            price: ''
+        }
+    }
+
+    onChange = e => {
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+    };
+
+
+    onSubmit = e => {
+        e.preventDefault();
+        const { name, description, price } = this.state;
+        const params = {name, description, price};
+        this.props.updateProduct(this.props.id, params, this.props.router)
+    };
+
+    componentDidMount() {
+        this.props.editProduct(this.props.id)
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps && nextProps.products) {
+            const {product} = nextProps.products;
+            if (product) {
+                this.setState({
+                    name: product.name,
+                    description: product.description,
+                    price: product.price
+                });
+            }
+        }
     }
 
     render (props) {
@@ -59,11 +103,10 @@ class EditPage extends React.Component {
         return (
             <div>
                 {renderHead}
-                <Edit
-                    id={this.props[0]}
-                    product={this.props.products}
-                    editProduct={this.props.editProduct}
-                    updateProduct={this.props.updateProduct}
+                <Form
+                    product={this.state}
+                    onChange={this.onChange}
+                    onSubmit={this.onSubmit}
                 />
             </div>
         )
@@ -87,4 +130,4 @@ const mapDispatchToProps = (dispatch, props) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditPage);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EditPage));

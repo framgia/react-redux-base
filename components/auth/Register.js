@@ -1,54 +1,20 @@
 import React, {Component} from 'react';
 import ActiveLink from './../ActiveLink'
-import { withRouter } from 'next/router'
 import {connect} from "react-redux";
 import Loading from './../Loading';
 
-class Register extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            username: '',
-            email: '',
-            password: '',
-            password_confirmation: '',
-            errors: [],
-            isLoading: false
-        }
-    }
-
-    onChange = e => {
-        this.setState({
-            [e.target.name]: e.target.value
-        });
-    };
-
-    componentWillReceiveProps(nextProps){
-        if (nextProps && nextProps.alert) {
-            this.setState({
-                errors: nextProps.alert.errors,
-                isLoading: false
-            });
-        }
-    }
-
-    onSubmit = e => {
-        e.preventDefault();
-        const { username, email, password, password_confirmation } = this.state;
-        const params = {username, email, password, password_confirmation};
-        this.props.registerAuth(params, this.props.router);
-        this.setState({isLoading: true});
-    };
-
+export default class Register extends Component {
     render() {
-        const {
+        let props = this.props;
+        let {
             username,
             email,
             password,
             password_confirmation,
             errors,
             isLoading
-        } = this.state;
+        } = props.form;
+        const { classes, onSubmit, onChange } = props;
 
         return (
             <div className="container">
@@ -60,7 +26,7 @@ class Register extends Component {
                                 {isLoading && 
                                     <Loading />
                                 }
-                                <form className="form-signin" onSubmit={this.onSubmit}>
+                                <form className="form-signin" onSubmit={onSubmit}>
                                     <div className="form-label-group">
                                         <input 
                                             type="text"
@@ -70,7 +36,7 @@ class Register extends Component {
                                             }`}
                                             placeholder="Username"
                                             value={username}
-                                            onChange={this.onChange}
+                                            onChange={onChange}
                                             />
                                         {errors && errors.username &&
                                             <span className="form-field__required text-danger">{errors.username}</span>
@@ -85,7 +51,7 @@ class Register extends Component {
                                             }`}
                                             placeholder="Email address"
                                             value={email}
-                                            onChange={this.onChange}
+                                            onChange={onChange}
                                             />
                                         {errors && errors.email &&
                                             <span className="form-field__required text-danger">{errors.email}</span>
@@ -100,7 +66,7 @@ class Register extends Component {
                                             }`}
                                             placeholder="Password"
                                             value={password}
-                                            onChange={this.onChange}
+                                            onChange={onChange}
                                             />
                                         {errors && errors.password &&
                                             <span className="form-field__required text-danger">{errors.password}</span>
@@ -115,7 +81,7 @@ class Register extends Component {
                                             }`}
                                             placeholder="Confirm Password"
                                             value={password_confirmation}
-                                            onChange={this.onChange}
+                                            onChange={onChange}
                                             />
                                         {errors && errors.password &&
                                             <span className="form-field__required text-danger">{errors.password}</span>
@@ -138,5 +104,3 @@ class Register extends Component {
         );
     }
 }
-
-export default withRouter(Register);

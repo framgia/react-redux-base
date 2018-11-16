@@ -1,66 +1,20 @@
 import React, {Component} from 'react';
 import ActiveLink from './../ActiveLink'
-import { withRouter } from 'next/router'
-import { reqLoginAuth } from './../../modules/auth/actions'
 import {connect} from "react-redux";
 import Loading from './../Loading';
 
-class Login extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            email: '',
-            password: '',
-            success: '',
-            errors: [],
-            error: '',
-            isLoading: false
-        }
-    }
-
-    onChange = e => {
-        this.setState({
-            [e.target.name]: e.target.value
-        });
-    };
-
-    componentWillReceiveProps(nextProps){
-        if (nextProps && nextProps.alert) {
-            this.setState({
-                errors: nextProps.alert.errors,
-                error: nextProps.alert.error,
-                isLoading: false
-            });
-        }
-    }
-
-    componentDidMount() {
-        if (this.props.alert) {
-            this.setState({
-                success: this.props.alert.success
-            })
-        }
-    }
-
-    onSubmit = e => {
-        e.preventDefault();
-        const { email, password } = this.state;
-        const params = { email, password };
-        this.props.loginAuth(params, this.props.router)
-        this.setState({
-            isLoading: true
-        })
-    };
-
+export default class Login extends Component {
     render() {
-        const {
+        let props = this.props
+        let {
             email,
             password,
             success,
             errors,
             error,
             isLoading
-        } = this.state;
+        } = props.form;
+        const { classes, onSubmit, onChange } = props;
 
         const successMessage = <div className="p-2 mb-2 bg-success text-white">{success}</div>;
         const errorMessage = <div className="p-2 mb-2 bg-danger text-white">{error}</div>;
@@ -76,7 +30,7 @@ class Login extends Component {
                                     <Loading />
                                 }
                                 <div className="form-label-group">{ success ? successMessage : (error ? errorMessage : '') }</div>
-                                <form className="form-signin" onSubmit={this.onSubmit}>
+                                <form className="form-signin" onSubmit={onSubmit}>
                                     <div className="form-label-group">
                                         <input
                                             type="text"
@@ -86,7 +40,7 @@ class Login extends Component {
                                             name="email"
                                             placeholder="Email address or Username"
                                             value={email}
-                                            onChange={this.onChange}
+                                            onChange={onChange}
                                             />
                                         {errors && errors.email &&
                                             <span className="form-field__required text-danger">{errors.email}</span>
@@ -101,7 +55,7 @@ class Login extends Component {
                                             placeholder="Password"
                                             name="password"
                                             value={password}
-                                            onChange={this.onChange}
+                                            onChange={onChange}
                                             />
                                         {errors && errors.password &&
                                             <span className="form-field__required text-danger">{errors.password}</span>
@@ -124,5 +78,3 @@ class Login extends Component {
         );
     }
 }
-
-export default withRouter(Login);

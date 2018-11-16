@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import Main from './../Main'
 import ActiveLink from './../ActiveLink';
 import Link from 'next/link'
-import { withNamespaces } from 'react-i18next'
 
 export default class List extends Component {
     render() {
