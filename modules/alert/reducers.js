@@ -10,18 +10,12 @@ const initialState = fromJS({
 export default function (state = initialState, action) {
     switch (action.type) {
         case Types.RECEIVE_SUCCESS_MESSAGE:
-            return state.merge({
-                success: action.success
-            })
+            return state.set('success', action.success)
 
         case Types.RECEIVE_ERRORS_MESSAGE:
-            return state.merge({
-                errors: action.errors
-            })
+            return state.set('errors', action.errors)
         case Types.RECEIVE_ERROR_MESSAGE:
-            return state.merge({
-                error: action.error
-            })
+            return state.set('error', action.error)
         default:
             return state;
     }

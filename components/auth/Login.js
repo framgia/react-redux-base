@@ -14,7 +14,7 @@ export default class Login extends Component {
             error,
             isLoading
         } = props.form;
-        const { classes, onSubmit, onChange } = props;
+        const { classes, onSubmit, onChange, t} = props;
 
         const successMessage = <div className="p-2 mb-2 bg-success text-white">{success}</div>;
         const errorMessage = <div className="p-2 mb-2 bg-danger text-white">{error}</div>;
@@ -25,7 +25,7 @@ export default class Login extends Component {
                     <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
                         <div className="card card-signin my-5">
                             <div className="card-body">
-                                <h5 className="card-title text-center">Sign In</h5>
+                                <h5 className="card-title text-center">{t('auth:signin')}</h5>
                                 {isLoading && 
                                     <Loading />
                                 }
@@ -38,7 +38,7 @@ export default class Login extends Component {
                                                 errors && errors.email ? ' border border-danger' : ''
                                             }`}
                                             name="email"
-                                            placeholder="Email address or Username"
+                                            placeholder={t('auth:email_or_username')}
                                             value={email}
                                             onChange={onChange}
                                             />
@@ -52,7 +52,7 @@ export default class Login extends Component {
                                             className={`form-control${
                                                 errors && errors.password ? ' border border-danger' : ''
                                             }`}
-                                            placeholder="Password"
+                                            placeholder={t('auth:password')}
                                             name="password"
                                             value={password}
                                             onChange={onChange}
@@ -62,11 +62,11 @@ export default class Login extends Component {
                                         }
                                     </div>
                                     <hr className="my-4"/>
-                                    <button className="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
+                                    <button className="btn btn-lg btn-primary btn-block text-uppercase" type="submit">{t('auth:signin')}</button>
                                     <div className="text-center">
                                         <span>
-                                            Don't have an account? 
-                                            <ActiveLink name='register'>Sign Up</ActiveLink>
+                                            {t('auth:dont_have_an_account')}
+                                            <ActiveLink name='register'>{t('auth:signup')}</ActiveLink>
                                         </span>
                                     </div>
                                 </form>

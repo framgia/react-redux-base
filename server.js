@@ -9,11 +9,13 @@ const handle = app.getRequestHandler()
 const handler = routes.getRequestHandler(app)
 const server = express()
 const cookieParser = require('cookie-parser');
+const { nextI18NextMiddleware } = require('./i18n')
 
 app.prepare()
   .then(() => {
     server.use(handler)
     server.use(cookieParser());
+    nextI18NextMiddleware(app, server)
 
     server.get('*', (req, res) => {
        return handle(req, res)
