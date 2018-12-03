@@ -8,7 +8,6 @@ import { withRouter } from 'next/router'
 import { authSelector } from './../modules/auth/selectors';
 
 class Index extends React.Component {
-
     static getInitialProps ({ctx}) {
         initialize(ctx);
     }

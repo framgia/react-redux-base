@@ -8,7 +8,6 @@ import { alertsSelector } from './../../modules/alert/selectors';
 import { authSelector } from './../../modules/auth/selectors';
 
 class RegisterPage extends React.Component {
-
     static getInitialProps ({ctx}) {
         initialize(ctx);
     }

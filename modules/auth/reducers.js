@@ -10,15 +10,9 @@ const initialState = fromJS({
 export default function (state = initialState, action) {
     switch (action.type) {
         case RECEIVE_LOGIN_AUTH:
-            return state.merge({
-                ...state,
-                isAuthenticated: action.decoded ? true : false
-            })
+            return state.set('isAuthenticated', action.decoded ? true : false)
         case RECEIVE_CURRENT_USER:
-            return state.merge({
-                ...state,
-                user: action.user
-            })
+            return state.set('user', action.user)
         default:
             return state;
     }

@@ -7,11 +7,11 @@ import { productsSelector } from './../../modules/product/selectors';
 import { withRouter } from 'next/router'
 
 class EditPage extends React.Component {
-    static async getInitialProps ({ctx}) {
-        const { query } = ctx;
-
-        return {
-            id: query.id
+    static async getInitialProps ({ ctx }) {
+        if (ctx) {
+            return {
+                id: await ctx.query.id
+            }
         }
     }
 
@@ -30,7 +30,6 @@ class EditPage extends React.Component {
         });
     };
 
-
     onSubmit = e => {
         e.preventDefault();
         const { name, description, price } = this.state;
@@ -38,8 +37,8 @@ class EditPage extends React.Component {
         this.props.updateProduct(this.props.id, params, this.props.router)
     };
 
-    componentDidMount() {
-        this.props.editProduct(this.props.id)
+    async componentDidMount() {
+        await this.props.editProduct(this.props.id)
     }
 
     componentWillReceiveProps(nextProps) {

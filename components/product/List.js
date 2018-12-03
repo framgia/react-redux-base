@@ -41,7 +41,7 @@ export default class List extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        { products.products.length > 0 ? showProducts(products.products) : 
+                        { products.length > 0 ? showProducts(products) : 
                         <tr>
                             <td className="table-bitterz__no-record" colSpan="4">No Product</td>
                         </tr>

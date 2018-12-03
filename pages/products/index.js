@@ -7,10 +7,6 @@ import { reqFetchProducts, reqDeleteProduct } from './../../modules/product/acti
 import { productsSelector } from './../../modules/product/selectors';
 
 class Index extends React.Component {
-    static getInitialProps ({ store, isServer }) {
-        return { isServer }
-    }
-
     componentDidMount() {
         this.props.getProducts()
     }

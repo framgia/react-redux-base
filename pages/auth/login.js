@@ -7,9 +7,11 @@ import { reqLoginAuth } from './../../modules/auth/actions'
 import { alertsSelector } from './../../modules/alert/selectors';
 import { authSelector } from './../../modules/auth/selectors';
 import { Map } from 'immutable';
+import {compose} from 'redux';
+import LanguageSwitch from './../../components/LanguageSwitch';
+import { withNamespaces } from '../../i18n'
 
 class LoginPage extends React.Component {
-
     static getInitialProps ({ctx}) {
         initialize(ctx);
     }
@@ -65,13 +67,18 @@ class LoginPage extends React.Component {
     };
 
     render () {
+        const {t} = this.props;
         return (
-            <Login
-                alert={this.props.alert}
-                onSubmit={this.onSubmit}
-                onChange={this.onChange}
-                form={this.state}
-            />
+            <React.Fragment>
+                <LanguageSwitch />
+                <Login
+                    alert={this.props.alert}
+                    onSubmit={this.onSubmit}
+                    onChange={this.onChange}
+                    form={this.state}
+                    t={t}
+                />
+            </React.Fragment>
         )
     }
 }
@@ -91,4 +98,9 @@ const mapDispatchToProps = (dispatch, props) => {
     }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LoginPage));
+export default withRouter(
+    compose(
+        connect(mapStateToProps, mapDispatchToProps),
+        withNamespaces('auth')
+    )(LoginPage)
+);
