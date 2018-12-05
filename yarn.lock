@@ -2325,8 +2325,8 @@ hoist-non-react-statics@3.0.1:
     react-is "^16.3.2"
 
 hoist-non-react-statics@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-3.2.0.tgz#d21b9fc72b50fdc38c5d88f6e2c52f2c2dbe5ee2"
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-3.2.1.tgz#c09c0555c84b38a7ede6912b61efddafd6e75e1e"
   dependencies:
     react-is "^16.3.2"
 
@@ -3135,9 +3135,9 @@ neo-async@^2.5.0:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.0.tgz#b9d15e4d71c6762908654b5183ed38b753340835"
 
-next-i18next@^0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/next-i18next/-/next-i18next-0.7.0.tgz#9cfa5bea2aedc46dcafd2b2611f8db622607744f"
+next-i18next@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/next-i18next/-/next-i18next-0.8.0.tgz#88119a05136b505796598b358862eb1f582ccf81"
   dependencies:
     detect-node "^2.0.4"
     hoist-non-react-statics "^3.2.0"

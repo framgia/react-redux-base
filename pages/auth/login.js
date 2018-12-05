@@ -13,7 +13,9 @@ import { withNamespaces } from '../../i18n'
 
 class LoginPage extends React.Component {
     static getInitialProps ({ctx}) {
-        initialize(ctx);
+        if (ctx) {
+            initialize(ctx);
+        }
     }
 
     constructor(props) {
