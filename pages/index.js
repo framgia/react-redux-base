@@ -9,7 +9,9 @@ import { authSelector } from './../modules/auth/selectors';
 
 class Index extends React.Component {
     static getInitialProps ({ctx}) {
-        initialize(ctx);
+        if (ctx) {
+            initialize(ctx);
+        }
     }
 
     componentDidMount() {

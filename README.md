@@ -3,8 +3,8 @@ Building...!!!
 
 API by Laravel: https://github.com/sonhip94/laravel-api
 NextJS
-- npm install
-- npm run dev
+- yarn install
+- yarn dev
 * API <br>
 Register<br>
 method: POST<br>

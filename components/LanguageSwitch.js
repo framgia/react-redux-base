@@ -11,7 +11,7 @@ const LanguageSwitch = ({t}) => (
         </li>
         <li className="nav-item">
             <button className="btn btn-sm btn-basic btn-block text-uppercase" onClick={() => i18n.changeLanguage('jp')}>
-                <ReactCountryFlag code="jp" jpg />
+                <ReactCountryFlag code="jp" svg />
             </button>
         </li>
         <li className="nav-item">

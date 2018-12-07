@@ -11,7 +11,7 @@ import config from './../config';
 import Router from 'next/router';
 import NProgress from 'nprogress';
 import { fromJS } from 'immutable';
-import { appWithTranslation } from '../i18n'
+import { appWithTranslation, i18n } from '../i18n'
 
 Router.events.on('routeChangeStart', (url) => {
     NProgress.start()
@@ -25,6 +25,10 @@ class MyApp extends App {
 
         if (Component.getInitialProps) {
             pageProps = await Component.getInitialProps({ ctx })
+        }
+
+        if (i18n.language !== 'vn' && i18n.language !== 'en' && i18n.language !== 'jp') {
+            i18n.language = 'en'
         }
 
         return { pageProps }
