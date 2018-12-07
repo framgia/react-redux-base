@@ -4,7 +4,6 @@ import { Provider } from 'react-redux'
 import withRedux from 'next-redux-wrapper'
 import withReduxSaga from 'next-redux-saga'
 import createStore from '../store'
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { I18nextProvider } from 'react-i18next'
 import { setCookie, getCookie, removeCookie } from './../utils/cookie';
 import config from './../config';
@@ -12,6 +11,7 @@ import Router from 'next/router';
 import NProgress from 'nprogress';
 import { fromJS } from 'immutable';
 import { appWithTranslation, i18n } from '../i18n'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 Router.events.on('routeChangeStart', (url) => {
     NProgress.start()

@@ -1,0 +1,48 @@
+.header-icon {
+  margin: 0 15px;
+}
+
+.header-icon i {
+  font-size: 20px;
+}
+
+.panel-box {
+  margin-bottom: 20px;
+}
+
+.ant-layout-logo {
+  height: 32px;
+  background: #333;
+  border-radius: 6px;
+  margin: 16px;
+}
+.sider-trigger {
+  position: absolute;
+  top: 0;
+  right: -50px;
+  width: 50px;
+  height: 63px;
+  line-height: 55px;
+  text-align: center;
+  color: #404040;
+  background: #fff;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+}
+
+.sider-trigger .anticon {
+  line-height: 15px;
+}
+
+.ant-layout-sider-collapsed .ant-menu .anticon {
+  font-size: 16px;
+  margin-left: 8px;
+}
+
+.ant-layout-sider-collapsed .nav-text {
+  display: none;
+}
+
+.ant-layout-sider-collapsed .ant-menu-submenu-vertical > .ant-menu-submenu-title:after {
+  display: none;
+}

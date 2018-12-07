@@ -11,3 +11,8 @@ routes.add('register', '/auth/register', 'auth/register')
 routes.add('products', '/products', 'products')
 routes.add('edit_product', '/products/:id/edit', 'products/edit')
 routes.add('create_product', '/products/create', 'products/create')
+
+routes.add('timeline', '/pages/timeline', 'timeline/index')
+routes.add('form', '/pages/form', 'form/index')
+routes.add('calendar', '/pages/calendar', 'calendar/index')
+routes.add('steps', '/pages/steps', 'steps/index')
