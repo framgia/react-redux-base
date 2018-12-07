@@ -17,13 +17,29 @@ app.prepare()
     server.use(cookieParser());
     nextI18NextMiddleware(app, server)
 
+    server.get('/auth/signin', (req, res) => {
+        if (req.cookies.token) {
+            res.redirect('/');
+        } else {
+            return app.render(req, res, '/auth/signin', req.query);
+        }
+    });
+
+    server.get('/auth/signup', (req, res) => {
+        if (req.cookies.token) {
+            res.redirect('/');
+        } else {
+            return app.render(req, res, '/auth/signup', req.query);
+        }
+    });
+
     server.get('*', (req, res) => {
        return handle(req, res)
     })
 
     createServer(handler)
-      .listen(port, (err) => {
-        if (err) throw err
-        console.log(`> Ready on http://localhost:${port}`)
-      })
+        .listen(port, (err) => {
+            if (err) throw err
+            console.log(`> Ready on http://localhost:${port}`)
+        })
   })
