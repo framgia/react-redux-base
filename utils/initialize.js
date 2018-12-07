@@ -14,8 +14,15 @@ export default function(ctx) {
             return null;
         }
     } else if (ctx && ctx.store) {
-        const token = ctx.store.getState().getIn(['auth', 'isAuthenticated']);
-        ctx.store.dispatch(recLoginAuth(token));
+        let tokenFromStore = ctx.store.getState().getIn(['auth', 'isAuthenticated']);
+        let tokenFromCookie = '';
+        if (tokenFromCookie != '') {
+            tokenFromCookie = getCookie('token')
+        }
+        let token = tokenFromStore ? tokenFromStore : tokenFromCookie;
+        if (!tokenFromStore) {
+            ctx.store.dispatch(reRecLoginAuth(token));
+        }
         if (token && (ctx.pathname === '/auth/login' || ctx.pathname === '/auth/register')) {
             setTimeout(function() {
                 Router.push('/');
