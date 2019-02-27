@@ -1,6 +1,5 @@
 import {createStore, applyMiddleware} from 'redux'
 import createSagaMiddleware from 'redux-saga'
-import Immutable from 'immutable';
 import { rootReducer, rootSaga } from './modules';
 
 const sagaMiddleware = createSagaMiddleware()
@@ -13,7 +12,7 @@ const bindMiddleware = (middleware) => {
   return applyMiddleware(...middleware)
 }
 
-let initialState = Immutable.Map();
+let initialState = {};
 function configureStore (initialState) {
   const store = createStore(
     rootReducer,

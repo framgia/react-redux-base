@@ -4,8 +4,6 @@ import Register from './../../components/auth/Register'
 import initialize from './../../utils/initialize';
 import { withRouter } from 'next/router'
 import { reqRegisterAuth } from './../../modules/auth/actions'
-import { alertsSelector } from './../../modules/alert/selectors';
-import { authSelector } from './../../modules/auth/selectors';
 
 class RegisterPage extends React.Component {
     static getInitialProps ({ctx}) {
@@ -69,8 +67,8 @@ class RegisterPage extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        auth : authSelector(state),
-        alert: alertsSelector(state)
+        auth : state.auth,
+        alert: state.alert
     }
 };
 

@@ -4,7 +4,6 @@ import List from './../../components/product/List'
 import { compose } from 'redux'
 import { withNamespaces } from 'react-i18next'
 import { reqFetchProducts, reqDeleteProduct } from './../../modules/product/actions'
-import { productsSelector } from './../../modules/product/selectors';
 
 class Index extends React.Component {
     componentDidMount() {
@@ -30,7 +29,7 @@ class Index extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        products: productsSelector(state)
+        products: state.products
     }
 }
 

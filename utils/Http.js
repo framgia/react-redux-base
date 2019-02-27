@@ -1,6 +1,8 @@
 import axios from 'axios'
 import systemConfig from './../config'
-import { getCookie } from './cookie'
+import { getCookie, setCookie } from './cookie'
+import createStore from './../store';
+import {reReqLoginAuth, recLoginAuth} from './../modules/auth/actions';
 
 const DEFAULT_CONFIG = {
     baseURL: systemConfig.API_URL,
@@ -52,8 +54,27 @@ export default class Http {
     }
 
     executeRequest(url, config) {
+        const store = createStore();
         const finalHeaderConfig = { ...this.config.headers, ...config.headers }
         const finalConfig = { ...this.config, url, ...config, headers: { ...finalHeaderConfig } }
+
         return axios.request(finalConfig)
+            .then(response => {
+                if (response.headers.authorization) {
+                    let token = response.headers.authorization;
+                    setCookie('token', token);
+                    store.dispatch(reReqLoginAuth(token));
+                }
+
+                return Promise.resolve(response)
+            })
+            .catch(error => {
+                if (error.response.status == statusCode.UNAUTHORIZED) {
+                    removeCookie('token');
+                    window.location.href = "/auth/login"
+                }
+
+                return Promise.reject(error)
+            })
     }
 }

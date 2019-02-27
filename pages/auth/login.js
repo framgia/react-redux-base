@@ -4,9 +4,6 @@ import Login from './../../components/auth/Login'
 import initialize from './../../utils/initialize';
 import { withRouter } from 'next/router'
 import { reqLoginAuth } from './../../modules/auth/actions'
-import { alertsSelector } from './../../modules/alert/selectors';
-import { authSelector } from './../../modules/auth/selectors';
-import { Map } from 'immutable';
 import {compose} from 'redux';
 import LanguageSwitch from './../../components/LanguageSwitch';
 import { withNamespaces } from '../../i18n'
@@ -87,8 +84,8 @@ class LoginPage extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        auth: authSelector(state),
-        alert: alertsSelector(state)
+        auth: state.auth,
+        alert: state.alert
     }
 };
 

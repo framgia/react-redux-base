@@ -10,7 +10,6 @@ import { setCookie, getCookie, removeCookie } from './../utils/cookie';
 import config from './../config';
 import Router from 'next/router';
 import NProgress from 'nprogress';
-import { fromJS } from 'immutable';
 import { appWithTranslation, i18n } from '../i18n'
 
 Router.events.on('routeChangeStart', (url) => {
@@ -46,7 +45,4 @@ class MyApp extends App {
     }
 }
 
-export default withRedux(createStore, {
-    serializeState: state => state.toJS(),
-    deserializeState: state => fromJS(state)
-})(withReduxSaga({ async: true })(appWithTranslation(MyApp)))
+export default withRedux(createStore)(withReduxSaga({ async: true })(appWithTranslation(MyApp)))

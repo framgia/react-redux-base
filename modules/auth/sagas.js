@@ -37,7 +37,7 @@ function* callLoginAuth(action) {
 
 function* callReAuthenticate(action) {
     try {
-        yield put(recLoginAuth(action));
+        yield put(recLoginAuth(action.token));
     } catch (e) {
         console.log(e.message);
     }
