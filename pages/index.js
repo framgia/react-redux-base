@@ -5,7 +5,6 @@ import ActiveLink from './../components/ActiveLink';
 import Main from './../components/Main';
 import initialize from '../utils/initialize';
 import { withRouter } from 'next/router'
-import { authSelector } from './../modules/auth/selectors';
 
 class Index extends React.Component {
     static getInitialProps ({ctx}) {
@@ -21,18 +20,20 @@ class Index extends React.Component {
     }
 
     render () {
+        let isLogged = this.props.auth.isAuthenticated;
+
         return (
-        	<Main>
-    	        <span>This is Home Page</span><br/>
-    		    <ActiveLink name='products'>Products</ActiveLink>
-      		</Main>
+            isLogged ? <Main>
+                <span>This is Home Page</span><br/>
+                <ActiveLink name='products'>Products</ActiveLink>
+              </Main> : null
         )
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-        auth : authSelector(state)
+        auth: state.auth
     }
 };
 

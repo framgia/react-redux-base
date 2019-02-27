@@ -6,7 +6,6 @@ import Link from 'next/link'
 export default class List extends Component {
     render() {
         const { products, t, onDelete } = this.props;
-        
         let showProducts = (products) =>{
             let result = null;
             if (products.length > 0) {
@@ -22,6 +21,7 @@ export default class List extends Component {
                     );
                 });
             }
+
             return result;
         }
 
@@ -41,7 +41,7 @@ export default class List extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        { products.length > 0 ? showProducts(products) : 
+                        { products && products.products ? showProducts(products.products) : 
                         <tr>
                             <td className="table-bitterz__no-record" colSpan="4">No Product</td>
                         </tr>

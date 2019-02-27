@@ -1,5 +1,5 @@
 import Router from 'next/router';
-import { reRecLoginAuth, recLoginAuth } from '../modules/auth/actions';
+import { reReqLoginAuth } from '../modules/auth/actions';
 import { getCookie } from './cookie';
 
 export default function(ctx) {
@@ -8,14 +8,22 @@ export default function(ctx) {
             const cookie = (ctx.req.headers.cookie.split(';').find(c => c.trim().startsWith('token=')));
             if (cookie) {
                 const token = cookie.split('=')[1]
-                ctx.store.dispatch(reRecLoginAuth(token));
+                ctx.store.dispatch(reReqLoginAuth(token));
             }
 
             return null;
         }
     } else if (ctx && ctx.store) {
-        const token = ctx.store.getState().getIn(['auth', 'isAuthenticated']);
-        ctx.store.dispatch(recLoginAuth(token));
+        let tokenFromStore = ctx.store.getState().auth.isAuthenticated;
+        let tokenFromCookie = '';
+        if (tokenFromCookie == '') {
+            tokenFromCookie = getCookie('token')
+        }
+        let token = tokenFromStore ? tokenFromStore : tokenFromCookie;
+        if (!tokenFromStore) {
+            ctx.store.dispatch(reReqLoginAuth(token));
+        }
+        
         if (token && (ctx.pathname === '/auth/login' || ctx.pathname === '/auth/register')) {
             setTimeout(function() {
                 Router.push('/');

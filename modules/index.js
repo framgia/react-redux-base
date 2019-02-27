@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux-immutable';
+import { combineReducers } from 'redux';
 import { fork, all } from 'redux-saga/effects';
 import products from './product/reducers';
 import auth from './auth/reducers';

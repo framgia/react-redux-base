@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 import Form from './../../components/product/Form'
 import Head from './../../components/Seo';
 import { reqEditProduct, reqUpdateProduct } from './../../modules/product/actions';
-import { productsSelector } from './../../modules/product/selectors';
 import { withRouter } from 'next/router'
 
 class EditPage extends React.Component {
@@ -114,7 +113,7 @@ class EditPage extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        products : productsSelector(state)
+        products : state.products
     }
 }
 

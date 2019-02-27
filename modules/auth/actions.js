@@ -23,7 +23,7 @@ export function recLoginAuth (decoded) {
     }
 }
 
-export function reRecLoginAuth (token) {
+export function reReqLoginAuth (token) {
     return {
         type: Types.RE_REQUEST_LOGIN_AUTH,
         token

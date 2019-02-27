@@ -9,47 +9,16 @@ import Http from './../../utils/Http';
 import jwt_decode from 'jwt-decode';
 import store from './../../store';
 import {Auth} from './../../constants/ApiRequest';
-import { authSelector } from './../../modules/auth/selectors';
 
 class Header extends Component {
     onLogout = () => {
         this.props.logout();
-        localStorage.removeItem('refreshToken');
+        removeCookie('token');
         window.location.href = "/auth/login"
     }
 
     componentDidMount() {
-        if (getCookie('token') && !localStorage.refreshToken) {
-            localStorage.setItem('refreshToken', Math.random().toString(36));
-        }
-        else if (getCookie('token') && localStorage.refreshToken) {
-            let decoded = jwt_decode(getCookie('token'));
-            let currentTime = Date.now()/1000;
-            let timeOut = (parseFloat(decoded.exp) - parseFloat(currentTime))*1000;
-            let timeRefresh = timeOut - 300000;
-            if (parseFloat(decoded.exp) > parseFloat(currentTime) && timeOut >= timeRefresh) {
-                if (this.requestTimeout) clearTimeout(this.requestTimeout);
-                this.requestTimeout = setTimeout(() => {
-                    (new Http()).get(Auth.REFRESH)
-                        .then(res => {
-                            setCookie('token', res.data.token)
-                            localStorage.removeItem('refreshToken');
-                        })
-                        .catch(err => {})
-                }, timeRefresh)
-            } else if (timeOut <= 0) {
-                removeCookie('token');
-                localStorage.removeItem('refreshToken');
-                this.props.setNullIsAuthenticated();
-                window.location.href = '/auth/login';
-            }
-        }
-        
-        this.props.getUser()
-    }
-
-    componentWillUnMount() {
-        if (this.requestTimeout) clearTimeout(this.requestTimeout);
+        this.props.getUser();
     }
 
     render() {
@@ -79,7 +48,7 @@ class Header extends Component {
 }
 
 const mapStateToProps = state => ({
-    auth: authSelector(state)
+    auth: state.auth
 });
 
 const mapDispatchToProps = (dispatch, props) => {

@@ -23,8 +23,8 @@ function* callCreateProduct(action) {
 
 function* callEditProduct(action) {
     try{
-        const products = yield call(editProduct, action.id);
-        yield put(recEditProduct(products));
+        const product = yield call(editProduct, action.id);
+        yield put(recEditProduct(product));
     } catch (e) {
         console.log(e);
     }
